@@ -3,6 +3,10 @@
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, { message: "getArxivLinks" }, (response) => {
         const linksElement = document.getElementById("links");
+        const countElement = document.getElementById("count");  // Get the count element
+
+        // Update the link count
+        countElement.textContent = `Found ${response.arxivLinks.length} links.`;
 
         for (let linkInfo of response.arxivLinks) {
             // Fetch the page and extract the title
@@ -36,11 +40,14 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     });
 
                     arrowContainer.addEventListener("mouseenter", function () {
-                        arrowContainer.style.color = "purple"; // Change the color on hover
+                        arrowContainer.style.backgroundColor = "#b31b1b";
+                        arrowContainer.style.color = "white";
                     });
 
                     arrowContainer.addEventListener("mouseleave", function () {
-                        arrowContainer.style.color = "blue"; // Reset the color when not hovering
+                        arrowContainer.style.backgroundColor = "";
+                        arrowContainer.style.color = "blue";
+                        
                     });
 
                     const arrowWrapper = document.createElement("span");

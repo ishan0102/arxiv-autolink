@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArXiv Autolink</title>
+    <title>arXiv Autolink</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap">
     <style>
         body {
@@ -13,12 +13,17 @@
         }
     
         h1 {
-            color: #167ac6;
+            color: #b31b1b;
             margin-top: 5px;
             font-family: 'Figtree', sans-serif;
         }
     
         h3 {
+            color: #b31b1b;
+            font-family: 'Figtree', serif;
+        }
+
+        h4 {
             color: black;
             margin-bottom: 10px;
             font-family: 'Figtree', serif;
@@ -34,6 +39,8 @@
             margin-bottom: 10px;
             display: flex;
             align-items: flex-start;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 10px;
         }
     
         a {
@@ -59,8 +66,9 @@
     </style>    
 </head>
 <body>
-    <h1>ArXiv Autolink</h1>
-    <h3>Click &#8595; to jump to page content.</h3>
+    <h1>arXiv Autolink</h1>
+    <h3 id="count">Found 0 links.</h3>
+    <h4>Click &#8595; to jump to page content.</h4>
     <ul id="links"></ul>
     <script src="popup.js"></script>
 </body>
