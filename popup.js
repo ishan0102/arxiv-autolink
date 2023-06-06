@@ -1,5 +1,3 @@
-// popup.js
-
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, { message: "getArxivLinks" }, (response) => {
         const linksElement = document.getElementById("links");
@@ -8,7 +6,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         // Update the link count
         countElement.textContent = `Found ${response.arxivLinks.length} links.`;
 
-        for (let linkInfo of response.arxivLinks) {
+        // Generate all fetch Promises
+        const fetchPromises = response.arxivLinks.map((linkInfo) =>
             // Fetch the page and extract the title
             fetch(linkInfo.link)
                 .then(response => response.text())
@@ -47,7 +46,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     arrowContainer.addEventListener("mouseleave", function () {
                         arrowContainer.style.backgroundColor = "";
                         arrowContainer.style.color = "blue";
-                        
+
                     });
 
                     const arrowWrapper = document.createElement("span");
@@ -70,7 +69,19 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                         event.preventDefault();  // Prevent the default link click behavior
                         chrome.tabs.create({ url: event.target.href });  // Open the link in a new tab
                     });
-                });
-        }
+                    return listItem;
+                })
+        );
+
+        // Wait for all fetch Promises to complete
+        Promise.all(fetchPromises)
+            .then((listItems) => {
+                for (let listItem of listItems) {
+                    linksElement.appendChild(listItem);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching links: ", error);
+            });
     });
 });
