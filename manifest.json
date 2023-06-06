@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "ArXiv Link Recognizer",
+    "name": "ArXiv Autolink",
     "version": "1.0",
     "permissions": ["activeTab"],
     "action": {

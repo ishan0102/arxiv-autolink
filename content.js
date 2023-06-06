@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === "getArxivLinks") {
         sendResponse({ arxivLinks: arxivLinks });
     } else if (request.message === "scrollToLink") {
-        window.scrollTo({ top: request.position - 10, behavior: 'smooth' });
+        window.scrollTo({ top: request.position - 40, behavior: 'smooth' });
     }
 });
 

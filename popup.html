@@ -1,30 +1,66 @@
-<!-- popup.html -->
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArXiv Autolink</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap">
     <style>
         body {
-            width: 400px;
-            font-family: Arial, sans-serif;
+            width: 350px;
+            font-family: 'Figtree', sans-serif;
             padding: 10px;
         }
-
+    
+        h1 {
+            color: #167ac6;
+            margin-top: 5px;
+            font-family: 'Figtree', sans-serif;
+        }
+    
+        h3 {
+            color: black;
+            margin-bottom: 10px;
+            font-family: 'Figtree', serif;
+        }
+    
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: disc;
+        }
+    
         li {
             margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
         }
-
+    
         a {
             color: #167ac6;
             text-decoration: none;
+            display: inline-block;
+            flex-grow: 1;
         }
-
+    
         a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
-    </style>
+    
+        .arrow-container {
+            margin-left: 15px;
+            cursor: pointer;
+            color: #167ac6;
+        }
+    
+        .arrow-container:hover {
+            background-color: transparent;
+        }
+    </style>    
 </head>
 <body>
-    <h1>ArXiv Links</h1>
+    <h1>ArXiv Autolink</h1>
+    <h3>Click &#8595; to jump to page content.</h3>
     <ul id="links"></ul>
     <script src="popup.js"></script>
 </body>

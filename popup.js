@@ -18,6 +18,43 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     const anchor = document.createElement("a");
                     anchor.href = linkInfo.link;
                     anchor.textContent = title;
+                    anchor.style.textDecoration = "none"; // Remove underline
+
+                    const arrowContainer = document.createElement("span");
+                    arrowContainer.innerHTML = "&#8595;";
+                    arrowContainer.title = "Click to jump to page content";
+                    arrowContainer.style.cursor = "pointer";
+                    arrowContainer.style.color = "blue"; // Change the color of the arrow
+
+                    arrowContainer.addEventListener("click", function (event) {
+                        event.stopPropagation(); // Prevent the click event from bubbling up to the anchor link
+                        chrome.tabs.sendMessage(tabs[0].id, {
+                            message: "scrollToLink",
+                            position: linkInfo.position,
+                            link: linkInfo.link
+                        });
+                    });
+
+                    arrowContainer.addEventListener("mouseenter", function () {
+                        arrowContainer.style.color = "purple"; // Change the color on hover
+                    });
+
+                    arrowContainer.addEventListener("mouseleave", function () {
+                        arrowContainer.style.color = "blue"; // Reset the color when not hovering
+                    });
+
+                    const arrowWrapper = document.createElement("span");
+                    arrowWrapper.style.marginLeft = "5px";
+                    arrowWrapper.addEventListener("mouseenter", function () {
+                        arrowContainer.style.backgroundColor = "transparent"; // Set background-color to transparent on hover
+                    });
+
+                    arrowWrapper.addEventListener("mouseleave", function () {
+                        arrowContainer.style.backgroundColor = ""; // Reset background-color when not hovering
+                    });
+
+                    arrowWrapper.appendChild(arrowContainer);
+                    anchor.appendChild(arrowWrapper);
                     listItem.appendChild(anchor);
                     linksElement.appendChild(listItem);
 
@@ -26,21 +63,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                         event.preventDefault();  // Prevent the default link click behavior
                         chrome.tabs.create({ url: event.target.href });  // Open the link in a new tab
                     });
-
-                    let downArrow = document.createElement("div");
-                    downArrow.innerHTML = "&#8595;";
-                    downArrow.title = "Click to jump to page content";
-                    downArrow.style.cursor = "pointer";
-
-                    downArrow.addEventListener("click", function () {
-                        chrome.tabs.sendMessage(tabs[0].id, {
-                            message: "scrollToLink",
-                            position: linkInfo.position
-                        });
-                    });
-
-                    listItem.appendChild(downArrow);
-                    linksElement.appendChild(listItem);
                 });
         }
     });
