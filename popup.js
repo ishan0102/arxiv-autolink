@@ -24,7 +24,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     anchor.style.textDecoration = "none"; // Remove underline
 
                     const arrowContainer = document.createElement("span");
-                    arrowContainer.innerHTML = "&#8595;";
+                    arrowContainer.innerHTML = "&#160;&#8595;&#160;";
                     arrowContainer.title = "Click to jump to page content";
                     arrowContainer.style.cursor = "pointer";
                     arrowContainer.style.color = "blue"; // Change the color of the arrow
@@ -51,14 +51,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
                     const arrowWrapper = document.createElement("span");
                     arrowWrapper.style.marginLeft = "5px";
-                    arrowWrapper.addEventListener("mouseenter", function () {
-                        arrowContainer.style.backgroundColor = "transparent"; // Set background-color to transparent on hover
-                    });
-
-                    arrowWrapper.addEventListener("mouseleave", function () {
-                        arrowContainer.style.backgroundColor = ""; // Reset background-color when not hovering
-                    });
-
                     arrowWrapper.appendChild(arrowContainer);
                     anchor.appendChild(arrowWrapper);
                     listItem.appendChild(anchor);
