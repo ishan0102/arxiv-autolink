@@ -73,11 +73,27 @@
         .arrow-container:hover {
             background-color: transparent;
         }
-    </style>    
+
+        .count-and-download {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: -15px;
+            margin-bottom: -10px;
+        }
+
+        #count {
+            margin-right: 15px;
+        }
+
+        h4 {
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>arXiv Autolink</h1>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="count-and-download">
         <h3 id="count">Found 0 links.</h3>
         <button id="download">Export to CSV</button>
     </div>
