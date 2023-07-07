@@ -1,7 +1,7 @@
 function downloadCSV(links) {
     // Prepare data for CSV
     const csvContent = 'data:text/csv;charset=utf-8,' + 'Title,Link\n'
-        + links.map(e => `"${e.title}", "${e.link}"`).join('\n');
+        + links.map(e => `"${e.title}",${e.link}`).join('\n');
 
     const encodedUri = encodeURI(csvContent);
     const link = document.getElementById('downloadLink');
