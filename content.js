@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 // If the URL is already in the object, it will simply overwrite the existing entry
                 arxivLinks[modifiedLink] = {
                     link: modifiedLink,
-                    position: link.getBoundingClientRect().top + window.pageYOffset,
+                    position: link.getBoundingClientRect().top + window.scrollY,
                 };
             }
         }

@@ -28,6 +28,16 @@
             margin-bottom: 10px;
             font-family: 'Figtree', serif;
         }
+
+        button {
+            background-color: #b31b1b;
+            color: white;
+            border: none;
+            padding: 2px 4px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Figtree', serif;
+        }
     
         ul {
             padding: 0;
@@ -67,9 +77,13 @@
 </head>
 <body>
     <h1>arXiv Autolink</h1>
-    <h3 id="count">Found 0 links.</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 id="count">Found 0 links.</h3>
+        <button id="download">Export to CSV</button>
+    </div>
     <h4>Click &#8595; to jump to page content.</h4>
     <ul id="links"></ul>
+    <a id="downloadLink" style="display: none;"></a>
     <script src="popup.js"></script>
 </body>
 </html>

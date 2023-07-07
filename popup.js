@@ -1,3 +1,15 @@
+function downloadCSV(links) {
+    // Prepare data for CSV
+    const csvContent = 'data:text/csv;charset=utf-8,' + 'Title,Link\n'
+        + links.map(e => `"${e.title}", "${e.link}"`).join('\n');
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.getElementById('downloadLink');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'arxiv_links.csv');
+    link.click();
+}
+
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, { message: "getArxivLinks" }, (response) => {
         const linksElement = document.getElementById("links");
@@ -15,6 +27,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(data, 'text/html');
                     const title = doc.querySelector('meta[property="og:title"]').content;
+                    linkInfo.title = title; // Add the title to the link object
 
                     // Create a new list item with a link to the paper
                     const listItem = document.createElement("li");
@@ -75,5 +88,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             .catch((error) => {
                 console.error("Error fetching links: ", error);
             });
+
+        document.getElementById('download').addEventListener('click', function () {
+            // Suppose arxivLinks is the array containing the links' data.
+            // Each element of arxivLinks should be an object with properties "title" and "link".
+            downloadCSV(response.arxivLinks);
+        });
     });
 });
